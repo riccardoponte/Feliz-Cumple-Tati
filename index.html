@@ -1801,7 +1801,7 @@
                 class="fa-solid fa-arrow-left"></i>
         </div>
         <div class="icon-btn" onclick="toggleSidebar()" id="menu-btn"><i class="fa-solid fa-bars"></i></div>
-        <h1 class="top-title" onclick="lanciaFiesta()">Forza Juventus</h1>
+        <h1 class="top-title">Forza Juventus</h1>
         <div class="top-icons">
             <div class="icon-btn" onclick="toggleTheme()" id="theme-btn"><i class="fa-solid fa-cake-candles"></i></div>
             <img src="assets/profilo/1.jpg" class="icon-btn pulse-profile"
@@ -2200,15 +2200,13 @@
                                 term.style.opacity = '0';
                                 setTimeout(() => {
                                     term.style.display = 'none';
-                                    lanciaFiesta();
                                 }, 800);
                             }, 2000);
                         }
                     }
                     typeLine();
                 } else {
-                    // Salta il terminale e vai dritto alla festa
-                    lanciaFiesta();
+                    // Salta il terminale
                 }
             }, 800);
         }
@@ -2328,7 +2326,7 @@
             if (pinCorrente === PIN_SEGRETO) {
                 document.getElementById('lock-screen').style.display = 'none';
                 document.getElementById('vault-inside').style.display = 'block';
-                lanciaFiesta(); inizializzaGrattaEVinci();
+                inizializzaGrattaEVinci();
             } else {
                 const display = document.getElementById('pin-display');
                 display.style.color = '#ff3333'; display.innerText = "ERR";
@@ -2409,7 +2407,8 @@
 
         function closePhoto() { document.getElementById('photo-modal').classList.remove('active'); }
 
-        // Swipe Modal Support
+        // Swipe Modal Support (RIMOSSO)
+        /*
         let modalTouchstartX = 0;
         let modalTouchendX = 0;
         document.getElementById('photo-modal').addEventListener('touchstart', e => {
@@ -2420,6 +2419,7 @@
             if (modalTouchendX < modalTouchstartX - 50) changePhoto(1);
             if (modalTouchendX > modalTouchstartX + 50) changePhoto(-1);
         });
+        */
 
         // PLAYLIST DATA & LOGIC
         const songs = [
@@ -2526,6 +2526,30 @@
                 img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
                 mood: "Chill",
                 explanation: "Non il mio cantante preferito, ma mi ricordava te."
+            },
+            {
+                title: "CAFÉ CON RON",
+                artist: "BAD BUNNY",
+                url: "assets/musica/cafe_con_ron.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Festa",
+                explanation: "DeBÍ TiRAR MáS FOToS."
+            },
+            {
+                title: "Paint The Town Red",
+                artist: "Doja Cat",
+                url: "assets/musica/paint_the_town_red.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Festa",
+                explanation: "Walk on by..."
+            },
+            {
+                title: "Ti volevo dedicare",
+                artist: "Rocco Hunt ft. J-AX",
+                url: "assets/musica/ti_volevo_dedicare.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Festa",
+                explanation: "Buon compleanno Tati"
             }
         ];
 
@@ -2655,79 +2679,12 @@
             }
         }
 
-        // PLAYROOM - HEART MAP
-        const mapMemories = {
-            'napoli': { img: 'assets/storia/napoli.jpg', text: 'Napoli: Dove tutto è iniziato. Le pizze a portafoglio e il nostro primo giro sul lungomare.' },
-            'mexico': { img: 'assets/storia/mexico.jpg', text: 'Mexico: I sapori, i colori e la tua terra meravigliosa che ora sento un po\' anche mia.' },
-            'roma': { img: 'assets/storia/roma.jpg', text: 'Roma: La città eterna, come il bene che ti voglio. Un weekend indimenticabile.' }
-        };
-
-        function showMapMemory(key) {
-            const memory = mapMemories[key];
-            openPhoto(memory.img, memory.text);
-        }
-
-        // PLAYROOM - CROSSWORD
-        const cwSolution = [
-            ['M', 'A', 'D', 'R', 'I', 'D'],
-            ['', 'F', '', '', '', ''],
-            ['', 'R', '', '', '', ''],
-            ['', 'A', '', '', 'O', ''],
-            ['', '', '', 'O', 'Z', ''],
-            ['', '', '', 'M', 'A', 'I']
-        ];
-
-        function renderCrossword() {
-            const grid = document.getElementById('cw-grid');
-            grid.innerHTML = '';
-            for (let r = 0; r < 6; r++) {
-                for (let c = 0; c < 6; c++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cw-cell' + (cwSolution[r][c] === '' ? ' empty' : '');
-                    if (cwSolution[r][c] !== '') {
-                        const input = document.createElement('input');
-                        input.maxLength = 1;
-                        input.dataset.row = r;
-                        input.dataset.col = c;
-                        cell.appendChild(input);
-                        // Aggiungi numero se necessario
-                        if (r === 0 && c === 0) cell.innerHTML += '<span class="cw-num">1-O</span>';
-                        if (r === 0 && c === 1) cell.innerHTML += '<span class="cw-num">1-V</span>';
-                        if (r === 3 && c === 4) cell.innerHTML += '<span class="cw-num">4</span>';
-                        if (r === 5 && c === 3) cell.innerHTML += '<span class="cw-num">5</span>';
-                    }
-                    grid.appendChild(cell);
-                }
-            }
-        }
-
-        function checkCrossword() {
-            const inputs = document.querySelectorAll('.cw-cell input');
-            let allCorrect = true;
-            inputs.forEach(input => {
-                const r = input.dataset.row;
-                const c = input.dataset.col;
-                if (input.value.toUpperCase() !== cwSolution[r][c]) {
-                    allCorrect = false;
-                    input.parentElement.style.background = '#ffcccc';
-                } else {
-                    input.parentElement.style.background = '#ccffcc';
-                }
-            });
-
-            if (allCorrect) {
-                lanciaFiesta();
-                alert("GRANDE! Hai completato il cruciverba. Sei la Regina della nostra storia! 👑");
-            } else {
-                alert("Ops! Qualcosa non torna. Controlla bene le risposte!");
-            }
-        }
-
         function goHome() {
             switchTab('caveau', document.getElementById('nav-caveau'));
         }
 
-        // SWIPE & NAVIGATION
+        // SWIPE & NAVIGATION (RIMOSSO)
+        /*
         let touchstartX = 0;
         let touchendX = 0;
         const sections = ['caveau', 'storia', 'album', 'playlist'];
@@ -2750,6 +2707,7 @@
                 if (currentIndex > 0) switchTab(sections[currentIndex - 1], document.querySelectorAll('.nav-item')[currentIndex - 1]);
             }
         }
+        */
 
         // NAV
         function switchTab(tabId, element) {
@@ -2792,15 +2750,8 @@
 
         // DUCK E FESTA
         function setDuckColor(filterValue) { document.getElementById('my-duck').style.filter = filterValue; }
-        function coniaPaperella() { lanciaFiesta(); }
-        function lanciaFiesta() {
-            const emojis = ['💙', '🍕', '🌮', '🌶️', '🌸'];
-            for (let i = 0; i < 30; i++) {
-                const item = document.createElement('div'); item.classList.add('fiesta-item'); item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-                item.style.left = `${Math.random() * 100}vw`; item.style.fontSize = `${Math.random() * 20 + 15}px`; item.style.animationDuration = `${Math.random() * 2 + 1.5}s`;
-                document.body.appendChild(item); setTimeout(() => item.remove(), 3500);
-            }
-        }
+        function coniaPaperella() { }
+
 
         // Registrazione Service Worker per PWA
         if ('serviceWorker' in navigator) {
