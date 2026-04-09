@@ -1,7 +1,8 @@
 {
   "name": "Tati's B-Day App",
   "short_name": "Tati App",
-  "start_url": "./index.html",
+  "id": "/Feliz-Cumple-Tati/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#0f0f0f",
   "theme_color": "#00A6FF",
