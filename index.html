@@ -12,6 +12,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
 
+    <!-- PWA Metadata -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00A6FF">
+
+    <!-- iOS support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tati App">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+
     <style>
         /* --- VARIABILI THEME --- */
         :root {
@@ -1758,6 +1768,15 @@
         }
     </style>
 
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+
+    <!-- Supporto specifico per iOS (Safari) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tati App">
+    <link rel="apple-touch-icon" href="./assets/icon-192.png">
+
 </head>
 
 <body>
@@ -2781,6 +2800,19 @@
                 item.style.left = `${Math.random() * 100}vw`; item.style.fontSize = `${Math.random() * 20 + 15}px`; item.style.animationDuration = `${Math.random() * 2 + 1.5}s`;
                 document.body.appendChild(item); setTimeout(() => item.remove(), 3500);
             }
+        }
+
+        // Registrazione Service Worker per PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registrato con successo:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Registrazione Service Worker fallita:', error);
+                    });
+            });
         }
     </script>
 </body>
