@@ -2376,7 +2376,7 @@
                         galleryId: 'album-lei'
                     }));
                 } else if (galleryId === 'profile') {
-                    currentPhotoList = Array.from({ length: 10 }, (_, i) => ({
+                    currentPhotoList = Array.from({ length: 11 }, (_, i) => ({
                         src: `assets/profilo/${i + 1}.jpg`,
                         desc: `Post #${i + 1} del profilo di Ana.`,
                         galleryId: 'profile'
@@ -2550,6 +2550,38 @@
                 img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
                 mood: "Festa",
                 explanation: "Buon compleanno Tati"
+            },
+            {
+                title: "Hold On",
+                artist: "Pinguini Tattici Nucleari",
+                url: "assets/musica/ptn_hold_on.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Chill",
+                explanation: "Un pezzo profondo dei Pinguini."
+            },
+            {
+                title: "Ricordi",
+                artist: "Pinguini Tattici Nucleari",
+                url: "assets/musica/ptn_ricordi.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Chill",
+                explanation: "Per i momenti in cui i ricordi affiorano."
+            },
+            {
+                title: "Scrivile Scemo",
+                artist: "Pinguini Tattici Nucleari",
+                url: "assets/musica/ptn_scrivile_scemo.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Festa",
+                explanation: "Un classico da cantare insieme!"
+            },
+            {
+                title: "Verdura",
+                artist: "Pinguini Tattici Nucleari",
+                url: "assets/musica/ptn_verdura.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Festa",
+                explanation: "Vibe allegra e spensierata."
             }
         ];
 
@@ -2668,7 +2700,7 @@
         function renderProfileFeed() {
             const feed = document.getElementById('profile-feed');
             feed.innerHTML = '';
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= 11; i++) {
                 const img = document.createElement('img');
                 img.className = 'feed-img';
                 const src = `assets/profilo/${i}.jpg`;
