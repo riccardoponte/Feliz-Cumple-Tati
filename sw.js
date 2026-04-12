@@ -7,7 +7,7 @@ const ASSETS = [
   './assets/icon-512.png'
 ];
 
-// Installazione Service Worker
+// Installazione del Service Worker
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
