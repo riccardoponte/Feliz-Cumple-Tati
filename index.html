@@ -964,7 +964,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #ffffff;
+            /* Sfondo animato azzurro fluido (tolto il bianco, aggiunto azzurro cielo) */
+            background: linear-gradient(-45deg, #00A6FF, #7dd3fc, #0284c7, #38bdf8);
+            background-size: 400% 400%;
+            animation: welcomeBgAnim 8s ease infinite;
             z-index: 10000;
             display: flex;
             flex-direction: column;
@@ -972,29 +975,72 @@
             align-items: center;
             text-align: center;
             transition: 0.8s ease-in-out;
-            color: #00A6FF;
+            color: #ffffff; /* Testo bianco per staccare dal blu */
             overflow: hidden;
         }
 
-        #welcome-screen::before {
+        @keyframes welcomeBgAnim {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Effetti di luce: sfere fluttuanti sullo sfondo */
+        #welcome-screen::before, #welcome-screen::after {
             content: "";
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1530103862676-fa8c9d34bb3a?w=1200') center/cover no-repeat;
-            filter: blur(8px) brightness(1.2);
-            opacity: 0.3;
+            width: 40vh;
+            height: 40vh;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            border-radius: 50%;
             z-index: -1;
+            animation: floatOrbs 10s infinite alternate ease-in-out;
+        }
+
+        #welcome-screen::before {
+            top: -10%;
+            left: -10%;
+        }
+
+        #welcome-screen::after {
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -5s;
+        }
+
+        @keyframes floatOrbs {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 100px) scale(1.3); }
         }
 
         #welcome-screen h1 {
             font-family: 'Permanent Marker', cursive !important;
             font-size: 4rem;
             margin-bottom: 10px;
-            color: #00A6FF;
-            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+            /* Gradient Arancio -> Rosa Messicano per un look "sunset" pazzesco */
+            background: linear-gradient(to bottom, #ff9800, #E4007C);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* Ombra scura per dare profondità alle scritte */
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.4));
+        }
+
+        #welcome-screen p {
+            font-family: 'Permanent Marker', cursive !important;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            /* Giallo acceso: è il colore che si legge meglio in assoluto sull'azzurro */
+            color: #ffeb3b; 
+            opacity: 1 !important;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+            letter-spacing: 1px;
+        }
+
+        /* Facciamo risaltare il bottone cambiando colore in rosa */
+        #welcome-screen .btn-entra {
+            background: var(--rosa-mex);
+            box-shadow: 0 10px 20px rgba(228, 0, 124, 0.4);
         }
 
         #welcome-screen p {
@@ -1766,6 +1812,119 @@
             text-align: left;
             flex: 1;
         }
+
+        /* --- PWA INSTALL PROMPT (BOTTOM SHEET STYLING) --- */
+        #pwa-install-prompt {
+            position: fixed;
+            bottom: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 100000;
+            display: none; /* Attivato da JS */
+            flex-direction: column;
+            justify-content: flex-end; /* Allinea in basso */
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        #pwa-install-prompt.active {
+            opacity: 1;
+        }
+
+        .pwa-modal {
+            background: #fff;
+            color: #111;
+            border-radius: 30px 30px 0 0; /* Arrotondato solo sopra */
+            padding: 30px 25px 40px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1);
+        }
+
+        #pwa-install-prompt.active .pwa-modal {
+            transform: translateY(0);
+        }
+
+        .pwa-header-drag {
+            width: 50px; height: 5px;
+            background: #ccc;
+            border-radius: 5px;
+            margin: 0 auto 20px auto;
+        }
+
+        .pwa-icon {
+            width: 70px; height: 70px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,166,255,0.3);
+        }
+
+        .pwa-modal h2 {
+            font-family: 'Permanent Marker', cursive;
+            color: #00A6FF;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .pwa-modal p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .ios-instruction {
+            background: #f4f8fb;
+            border: 1px solid #d0e6f5;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: left;
+            display: none;
+        }
+
+        .ios-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .ios-step:last-child { margin-bottom: 0; }
+
+        .apple-icon {
+            width: 24px; height: 24px;
+            fill: #007AFF; /* Blu Apple */
+            flex-shrink: 0;
+        }
+
+        .pwa-btn {
+            background: linear-gradient(90deg, #00A6FF, #E4007C);
+            border: none; color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 16px; font-weight: bold;
+            cursor: pointer; width: 100%;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(228, 0, 124, 0.3);
+        }
+
+        .pwa-btn-close {
+            background: #f0f0f0;
+            color: #333;
+            box-shadow: none;
+        }
+
+        .pwa-checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #777;
+            margin-top: 10px;
+        }
     </style>
 
     <!-- PWA Manifest -->
@@ -1781,11 +1940,42 @@
 
 <body>
 
+    <!-- PWA INSTALL PROMPT -->
+    <div id="pwa-install-prompt">
+        <div class="pwa-modal">
+            <div class="pwa-header-drag"></div>
+            <img src="assets/icon-192.png" class="pwa-icon" alt="App Icon">
+            <h2>Scarica Tati App!</h2>
+            <p>Aggiungila alla tua schermata Home per l'esperienza completa a schermo intero.</p>
+            
+            <!-- Istruzioni iOS con Icone Apple Originali (SVG) -->
+            <div id="ios-instruction-box" class="ios-instruction">
+                <div class="ios-step">
+                    <!-- Icona Apple Share -->
+                    <svg class="apple-icon" viewBox="0 0 50 50"><path d="M25,2.1L12.4,14.6h8.4v17.2h8.4V14.6h8.4L25,2.1z M39.6,23.1v20.6H10.4V23.1H2v24.8c0,2.3,1.9,4.2,4.2,4.2h37.5 c2.3,0,4.2-1.9,4.2-4.2V23.1H39.6z"/></svg>
+                    <span>1. Premi il tasto <b>Condividi</b> nella barra in basso di Safari.</span>
+                </div>
+                <div class="ios-step">
+                    <!-- Icona Apple Add to Home -->
+                    <svg class="apple-icon" viewBox="0 0 50 50"><path d="M39.6,10.4h-8.4V2h-12.5v8.4H10.4v12.5h8.4v8.4h12.5v-8.4h8.4V10.4z M10.4,39.6h29.2v-8.4h8.4v12.5c0,2.3-1.9,4.2-4.2,4.2H10.4 c-2.3,0-4.2-1.9-4.2-4.2v-12.5h8.4V39.6z"/></svg>
+                    <span>2. Scorri e tocca <b>"Aggiungi alla schermata Home"</b>.</span>
+                </div>
+            </div>
+
+            <button id="pwa-install-btn" class="pwa-btn">Installa Ora</button>
+            <button class="pwa-btn pwa-btn-close" onclick="closePwaPrompt()">Ci penso dopo</button>
+            
+            <div class="pwa-checkbox">
+                <input type="checkbox" id="pwa-dont-show">
+                <label for="pwa-dont-show">Non mostrare più in futuro</label>
+            </div>
+        </div>
+    </div>
+
     <!-- WELCOME SCREEN -->
     <div id="welcome-screen">
         <img src="assets/welcome.jpg"
-            style="width: 200px; height: 200px; border-radius: 20px; object-fit: cover; margin-bottom: 20px;"
-            class="floating">
+        style="width: 200px; height: 200px; border-radius: 20px; object-fit: cover; margin-bottom: 20px;">
         <h1>Auguri Tati!</h1>
         <p style="font-size: 1.2rem; margin-bottom: 40px; opacity: 0.8;">Sempre più vicina ai 30 eheheh</p>
         <button class="btn-entra glow-btn" onclick="startApp()">ENTRA</button>
@@ -1989,7 +2179,7 @@
     <div id="album" class="section">
         <div class="section-header">
             <div class="back-circle" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i></div>
-            <h2 class="section-title">Wall of Fame (Clicca per aprirle)</h2>
+            <h2 class="section-title">Ricordi passati</h2>
         </div>
         <div class="album-nav">
             <div class="album-tab active" onclick="switchGallery('noi', this)">Dottori 👨‍⚕️</div>
@@ -2021,7 +2211,7 @@
     <div id="playlist" class="section">
         <div class="section-header">
             <div class="back-circle" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i></div>
-            <h2 class="section-title">La tua playlist (Se il play non va, clicca sul nome canzone) </h2>
+            <h2 class="section-title">Playlist personale  </h2>
         </div>
 
         <!-- Playlist Container -->
@@ -2146,6 +2336,69 @@
 
     <!-- JS LOGIC -->
     <script>
+        // --- PWA INSTALLATION LOGIC (Gestione iOS e Android) ---
+        let deferredPrompt;
+        const installPromptDiv = document.getElementById('pwa-install-prompt');
+        const installBtn = document.getElementById('pwa-install-btn');
+        const iosInstruction = document.getElementById('ios-instruction-box');
+        
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        const hidePrompt = localStorage.getItem('hideInstallPrompt') === 'true';
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        // Funzione per animare la comparsa del Bottom Sheet
+        function showPwaPrompt() {
+            installPromptDiv.style.display = 'flex';
+            // Breve ritardo per permettere al CSS di applicare la transizione
+            setTimeout(() => {
+                installPromptDiv.classList.add('active');
+            }, 50);
+        }
+
+        // Funzione per chiudere l'animazione e salvare la scelta
+        function closePwaPrompt() {
+            const dontShowAgain = document.getElementById('pwa-dont-show').checked;
+            if (dontShowAgain) {
+                localStorage.setItem('hideInstallPrompt', 'true');
+            }
+            installPromptDiv.classList.remove('active');
+            // Aspetta la fine dell'animazione per nascondere il div
+            setTimeout(() => {
+                installPromptDiv.style.display = 'none';
+            }, 400);
+        }
+
+        // Se l'app non è installata e il prompt non è nascosto
+        if (!isStandalone && !hidePrompt) {
+            if (isIOS) {
+                // Su iOS appare subito, senza fare aspettare l'utente
+                installBtn.style.display = 'none'; 
+                iosInstruction.style.display = 'block';
+                // Trigger quasi immediato (500ms) dopo l'inizio del caricamento per non confliggere
+                setTimeout(showPwaPrompt, 500); 
+            } else {
+                // Su Android aspettiamo l'evento nativo
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    // Mostra immediatamente appena il browser è pronto
+                    showPwaPrompt();
+                });
+
+                installBtn.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        if (outcome === 'accepted') {
+                            console.log('App installata!');
+                        }
+                        deferredPrompt = null;
+                        closePwaPrompt();
+                    }
+                });
+            }
+        }
+
         // WELCOME SCREEN & HACKER TERMINAL POTENZIATA
         function startApp() {
             const ws = document.getElementById('welcome-screen');
