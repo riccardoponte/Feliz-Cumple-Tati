@@ -13,14 +13,17 @@
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
 
     <!-- PWA Metadata -->
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#00A6FF">
 
     <!-- iOS support -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Tati App">
-    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <link rel="apple-touch-icon" href="./assets/icon-192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./assets/icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icon-192.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="./assets/icon-192.png">
 
     <style>
         /* --- VARIABILI THEME --- */
@@ -1958,14 +1961,6 @@
         }
     </style>
 
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json">
-
-    <!-- Supporto specifico per iOS (Safari) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Tati App">
-    <link rel="apple-touch-icon" href="./assets/icon-192.png">
 
 </head>
 
@@ -2261,6 +2256,11 @@
             <div class="now-playing"><i class="fa-solid fa-compact-disc fa-spin" id="disc-icon"></i>
                 <h3 id="current-title">Scegli una traccia</h3>
             </div>
+            <div style="padding: 15px; text-align: center; border-bottom: 1px solid var(--border-color);">
+                <button onclick="playRandomShuffle()" id="list-shuffle-btn" style="background: var(--nav-bg); color: var(--text-color); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: inherit; font-weight: bold; transition: 0.3s;">
+                    <i class="fa-solid fa-shuffle"></i> Riproduzione Casuale
+                </button>
+            </div>
             <audio id="main-audio"></audio>
             <div id="track-list">
                 <!-- I brani verranno renderizzati da JS -->
@@ -2332,6 +2332,7 @@
         </div>
 
         <div class="player-controls">
+            <i class="fa-solid fa-shuffle" id="full-shuffle-btn" onclick="toggleShuffle()" style="font-size: 20px; opacity: 0.5; cursor: pointer; transition: 0.3s;"></i>
             <i class="fa-solid fa-backward-step" onclick="prevSong()"></i>
             <i class="fa-solid fa-circle-play play-pause-big" id="full-play-btn" onclick="togglePlay()"></i>
             <i class="fa-solid fa-forward-step" onclick="nextSong()"></i>
@@ -2534,6 +2535,7 @@
         }
 
         function showTerminal(isManual = false) {
+            history.pushState({ modal: 'hacker-terminal' }, '');
             const term = document.getElementById('hacker-terminal');
             const termContent = document.getElementById('terminal-content');
             const closeBtn = document.getElementById('close-terminal-btn');
@@ -2575,12 +2577,13 @@
             typeLine();
         }
 
-        function hideTerminal() {
+        function hideTerminal(fromHistory = false) {
             const term = document.getElementById('hacker-terminal');
             term.style.opacity = '0';
             setTimeout(() => {
                 term.style.display = 'none';
             }, 500);
+            if (!fromHistory) history.back();
         }
 
         // THEME TOGGLE (DARK/LIGHT)
@@ -2602,9 +2605,18 @@
         });
 
         // SIDEBAR TOGGLE
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('sidebar-overlay').classList.toggle('active');
+        function toggleSidebar(fromHistory = false) {
+            const sidebar = document.getElementById('sidebar');
+            const isActive = sidebar.classList.contains('active');
+            if (!isActive) {
+                history.pushState({ modal: 'sidebar' }, '');
+                sidebar.classList.add('active');
+                document.getElementById('sidebar-overlay').classList.add('active');
+            } else {
+                sidebar.classList.remove('active');
+                document.getElementById('sidebar-overlay').classList.remove('active');
+                if (!fromHistory) history.back();
+            }
         }
 
         // CAVEAU
@@ -2650,6 +2662,7 @@
         let currentPhotoIndex = 0;
 
         function openPhoto(imgSrc, descrizione, galleryId = null, index = 0) {
+            history.pushState({ modal: 'photo-modal' }, '');
             document.getElementById('modal-img').src = imgSrc;
             document.getElementById('modal-desc').innerText = descrizione;
             document.getElementById('photo-modal').classList.add('active');
@@ -2701,10 +2714,12 @@
             document.getElementById('modal-desc').innerText = photo.desc;
         }
 
-        function closePhoto() { document.getElementById('photo-modal').classList.remove('active'); }
+        function closePhoto(fromHistory = false) {
+            document.getElementById('photo-modal').classList.remove('active');
+            if (!fromHistory) history.back();
+        }
 
-        // Swipe Modal Support (RIMOSSO)
-        /*
+        // Swipe Modal Support
         let modalTouchstartX = 0;
         let modalTouchendX = 0;
         document.getElementById('photo-modal').addEventListener('touchstart', e => {
@@ -2715,7 +2730,6 @@
             if (modalTouchendX < modalTouchstartX - 50) changePhoto(1);
             if (modalTouchendX > modalTouchstartX + 50) changePhoto(-1);
         });
-        */
 
         // PLAYLIST DATA & LOGIC
         const songs = [
@@ -3043,6 +3057,27 @@
 
         const audioPlayer = document.getElementById('main-audio');
         let currentTrackIndex = -1;
+        let isShuffle = false;
+
+        function toggleShuffle() {
+            isShuffle = !isShuffle;
+            const fullShuffleBtn = document.getElementById('full-shuffle-btn');
+            const listShuffleBtn = document.getElementById('list-shuffle-btn');
+            
+            if (isShuffle) {
+                if(fullShuffleBtn) { fullShuffleBtn.style.opacity = '1'; fullShuffleBtn.style.color = 'var(--azzurro)'; }
+                if(listShuffleBtn) { listShuffleBtn.style.color = 'var(--azzurro)'; listShuffleBtn.style.borderColor = 'var(--azzurro)'; }
+            } else {
+                if(fullShuffleBtn) { fullShuffleBtn.style.opacity = '0.5'; fullShuffleBtn.style.color = ''; }
+                if(listShuffleBtn) { listShuffleBtn.style.color = 'var(--text-color)'; listShuffleBtn.style.borderColor = 'var(--border-color)'; }
+            }
+        }
+
+        function playRandomShuffle() {
+            if (!isShuffle) toggleShuffle();
+            let index = Math.floor(Math.random() * songs.length);
+            playSong(index);
+        }
 
         function renderSongs() {
             const list = document.getElementById('track-list');
@@ -3128,17 +3163,32 @@
         }
 
         function prevSong() {
-            const index = (currentTrackIndex > 0) ? currentTrackIndex - 1 : songs.length - 1;
+            let index;
+            if (isShuffle) {
+                index = Math.floor(Math.random() * songs.length);
+            } else {
+                index = (currentTrackIndex > 0) ? currentTrackIndex - 1 : songs.length - 1;
+            }
             playSong(index);
         }
 
         function nextSong() {
-            const index = (currentTrackIndex < songs.length - 1) ? currentTrackIndex + 1 : 0;
+            let index;
+            if (isShuffle) {
+                index = Math.floor(Math.random() * songs.length);
+            } else {
+                index = (currentTrackIndex < songs.length - 1) ? currentTrackIndex + 1 : 0;
+            }
             playSong(index);
         }
 
-        function toggleFullPlayer(open) {
+        function toggleFullPlayer(open, fromHistory = false) {
             document.getElementById('full-player').style.display = open ? 'flex' : 'none';
+            if (open) {
+                history.pushState({ modal: 'full-player' }, '');
+            } else if (!fromHistory) {
+                history.back();
+            }
         }
 
         function closeMiniPlayer() {
@@ -3149,8 +3199,13 @@
         }
 
         // INSTAGRAM PROFILE LOGIC
-        function toggleProfile(open) {
+        function toggleProfile(open, fromHistory = false) {
             document.getElementById('profile-screen').style.display = open ? 'flex' : 'none';
+            if (open) {
+                history.pushState({ modal: 'profile-screen' }, '');
+            } else if (!fromHistory) {
+                history.back();
+            }
         }
 
         function renderProfileFeed() {
@@ -3171,31 +3226,59 @@
             switchTab('caveau', document.getElementById('nav-caveau'));
         }
 
-        // SWIPE & NAVIGATION (RIMOSSO)
-        /*
+        // SWIPE & NAVIGATION
         let touchstartX = 0;
         let touchendX = 0;
-        const sections = ['caveau', 'storia', 'album', 'playlist'];
+        const sections = ['caveau', 'papere', 'album', 'playlist'];
 
         document.addEventListener('touchstart', e => {
+            if(document.getElementById('photo-modal').classList.contains('active')) return;
+            if(document.getElementById('full-player').style.display === 'flex') return;
+            if(document.getElementById('profile-screen').style.display === 'flex') return;
+            if(document.getElementById('hacker-terminal').style.display === 'block') return;
             touchstartX = e.changedTouches[0].screenX;
         });
 
         document.addEventListener('touchend', e => {
+            if(document.getElementById('photo-modal').classList.contains('active')) return;
+            if(document.getElementById('full-player').style.display === 'flex') return;
+            if(document.getElementById('profile-screen').style.display === 'flex') return;
+            if(document.getElementById('hacker-terminal').style.display === 'block') return;
             touchendX = e.changedTouches[0].screenX;
             handleGesture();
         });
 
         function handleGesture() {
-            if (Math.abs(touchendX - touchstartX) < 50) return;
-            const currentIndex = sections.indexOf(document.querySelector('.section.active').id);
+            if (Math.abs(touchendX - touchstartX) < 70) return;
+            const activeSection = document.querySelector('.section.active');
+            if (!activeSection) return;
+            const currentIndex = sections.indexOf(activeSection.id);
+            if (currentIndex === -1) return;
+
             if (touchendX < touchstartX) { // Swipe S -> Avanti
                 if (currentIndex < sections.length - 1) switchTab(sections[currentIndex + 1], document.querySelectorAll('.nav-item')[currentIndex + 1]);
             } else { // Swipe D -> Indietro
                 if (currentIndex > 0) switchTab(sections[currentIndex - 1], document.querySelectorAll('.nav-item')[currentIndex - 1]);
             }
         }
-        */
+
+        // GESTIONE BACK BUTTON (HARDWARE)
+        window.addEventListener('popstate', (e) => {
+            const photoModal = document.getElementById('photo-modal');
+            if (photoModal.classList.contains('active')) { closePhoto(true); return; }
+            
+            const fullPlayer = document.getElementById('full-player');
+            if (fullPlayer.style.display === 'flex') { toggleFullPlayer(false, true); return; }
+            
+            const profileScreen = document.getElementById('profile-screen');
+            if (profileScreen.style.display === 'flex') { toggleProfile(false, true); return; }
+            
+            const terminal = document.getElementById('hacker-terminal');
+            if (terminal.style.display === 'block') { hideTerminal(true); return; }
+            
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('active')) { toggleSidebar(true); return; }
+        });
 
         // NAV
         function switchTab(tabId, element) {
