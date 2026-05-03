@@ -975,23 +975,33 @@
             align-items: center;
             text-align: center;
             transition: 0.8s ease-in-out;
-            color: #ffffff; /* Testo bianco per staccare dal blu */
+            color: #ffffff;
+            /* Testo bianco per staccare dal blu */
             overflow: hidden;
         }
 
         @keyframes welcomeBgAnim {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         /* Effetti di luce: sfere fluttuanti sullo sfondo */
-        #welcome-screen::before, #welcome-screen::after {
+        #welcome-screen::before,
+        #welcome-screen::after {
             content: "";
             position: absolute;
             width: 40vh;
             height: 40vh;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
             border-radius: 50%;
             z-index: -1;
             animation: floatOrbs 10s infinite alternate ease-in-out;
@@ -1009,8 +1019,13 @@
         }
 
         @keyframes floatOrbs {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(100px, 100px) scale(1.3); }
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(100px, 100px) scale(1.3);
+            }
         }
 
         #welcome-screen h1 {
@@ -1023,7 +1038,7 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             /* Ombra scura per dare profondità alle scritte */
-            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.4));
+            filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.4));
         }
 
         #welcome-screen p {
@@ -1031,7 +1046,7 @@
             font-size: 1.2rem;
             margin-bottom: 40px;
             /* Giallo acceso: è il colore che si legge meglio in assoluto sull'azzurro */
-            color: #ffeb3b; 
+            color: #ffeb3b;
             opacity: 1 !important;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
             letter-spacing: 1px;
@@ -1816,13 +1831,18 @@
         /* --- PWA INSTALL PROMPT (BOTTOM SHEET STYLING) --- */
         #pwa-install-prompt {
             position: fixed;
-            bottom: 0; left: 0; width: 100%; height: 100%;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(8px);
             z-index: 100000;
-            display: none; /* Attivato da JS */
+            display: none;
+            /* Attivato da JS */
             flex-direction: column;
-            justify-content: flex-end; /* Allinea in basso */
+            justify-content: flex-end;
+            /* Allinea in basso */
             opacity: 0;
             transition: opacity 0.4s ease;
         }
@@ -1834,11 +1854,12 @@
         .pwa-modal {
             background: #fff;
             color: #111;
-            border-radius: 30px 30px 0 0; /* Arrotondato solo sopra */
+            border-radius: 30px 30px 0 0;
+            /* Arrotondato solo sopra */
             padding: 30px 25px 40px;
             text-align: center;
             width: 100%;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
             transform: translateY(100%);
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1);
         }
@@ -1848,17 +1869,19 @@
         }
 
         .pwa-header-drag {
-            width: 50px; height: 5px;
+            width: 50px;
+            height: 5px;
             background: #ccc;
             border-radius: 5px;
             margin: 0 auto 20px auto;
         }
 
         .pwa-icon {
-            width: 70px; height: 70px;
+            width: 70px;
+            height: 70px;
             border-radius: 15px;
             margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,166,255,0.3);
+            box-shadow: 0 5px 15px rgba(0, 166, 255, 0.3);
         }
 
         .pwa-modal h2 {
@@ -1891,21 +1914,29 @@
             gap: 10px;
             margin-bottom: 10px;
         }
-        .ios-step:last-child { margin-bottom: 0; }
+
+        .ios-step:last-child {
+            margin-bottom: 0;
+        }
 
         .apple-icon {
-            width: 24px; height: 24px;
-            fill: #007AFF; /* Blu Apple */
+            width: 24px;
+            height: 24px;
+            fill: #007AFF;
+            /* Blu Apple */
             flex-shrink: 0;
         }
 
         .pwa-btn {
             background: linear-gradient(90deg, #00A6FF, #E4007C);
-            border: none; color: white;
+            border: none;
+            color: white;
             padding: 15px 30px;
             border-radius: 30px;
-            font-size: 16px; font-weight: bold;
-            cursor: pointer; width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
             margin-bottom: 15px;
             box-shadow: 0 5px 15px rgba(228, 0, 124, 0.3);
         }
@@ -1947,24 +1978,30 @@
             <img src="assets/icon-192.png" class="pwa-icon" alt="App Icon">
             <h2>Scarica Tati App!</h2>
             <p>Aggiungila alla tua schermata Home per l'esperienza completa a schermo intero.</p>
-            
+
             <!-- Istruzioni iOS con Icone Apple Originali (SVG) -->
             <div id="ios-instruction-box" class="ios-instruction">
                 <div class="ios-step">
                     <!-- Icona Apple Share -->
-                    <svg class="apple-icon" viewBox="0 0 50 50"><path d="M25,2.1L12.4,14.6h8.4v17.2h8.4V14.6h8.4L25,2.1z M39.6,23.1v20.6H10.4V23.1H2v24.8c0,2.3,1.9,4.2,4.2,4.2h37.5 c2.3,0,4.2-1.9,4.2-4.2V23.1H39.6z"/></svg>
+                    <svg class="apple-icon" viewBox="0 0 50 50">
+                        <path
+                            d="M25,2.1L12.4,14.6h8.4v17.2h8.4V14.6h8.4L25,2.1z M39.6,23.1v20.6H10.4V23.1H2v24.8c0,2.3,1.9,4.2,4.2,4.2h37.5 c2.3,0,4.2-1.9,4.2-4.2V23.1H39.6z" />
+                    </svg>
                     <span>1. Premi il tasto <b>Condividi</b> nella barra in basso di Safari.</span>
                 </div>
                 <div class="ios-step">
                     <!-- Icona Apple Add to Home -->
-                    <svg class="apple-icon" viewBox="0 0 50 50"><path d="M39.6,10.4h-8.4V2h-12.5v8.4H10.4v12.5h8.4v8.4h12.5v-8.4h8.4V10.4z M10.4,39.6h29.2v-8.4h8.4v12.5c0,2.3-1.9,4.2-4.2,4.2H10.4 c-2.3,0-4.2-1.9-4.2-4.2v-12.5h8.4V39.6z"/></svg>
+                    <svg class="apple-icon" viewBox="0 0 50 50">
+                        <path
+                            d="M39.6,10.4h-8.4V2h-12.5v8.4H10.4v12.5h8.4v8.4h12.5v-8.4h8.4V10.4z M10.4,39.6h29.2v-8.4h8.4v12.5c0,2.3-1.9,4.2-4.2,4.2H10.4 c-2.3,0-4.2-1.9-4.2-4.2v-12.5h8.4V39.6z" />
+                    </svg>
                     <span>2. Scorri e tocca <b>"Aggiungi alla schermata Home"</b>.</span>
                 </div>
             </div>
 
             <button id="pwa-install-btn" class="pwa-btn">Installa Ora</button>
             <button class="pwa-btn pwa-btn-close" onclick="closePwaPrompt()">Ci penso dopo</button>
-            
+
             <div class="pwa-checkbox">
                 <input type="checkbox" id="pwa-dont-show">
                 <label for="pwa-dont-show">Non mostrare più in futuro</label>
@@ -1975,7 +2012,7 @@
     <!-- WELCOME SCREEN -->
     <div id="welcome-screen">
         <img src="assets/welcome.jpg"
-        style="width: 200px; height: 200px; border-radius: 20px; object-fit: cover; margin-bottom: 20px;">
+            style="width: 200px; height: 200px; border-radius: 20px; object-fit: cover; margin-bottom: 20px;">
         <h1>Auguri Tati!</h1>
         <p style="font-size: 1.2rem; margin-bottom: 40px; opacity: 0.8;">Sempre più vicina ai 30 eheheh</p>
         <button class="btn-entra glow-btn" onclick="startApp()">ENTRA</button>
@@ -2188,20 +2225,24 @@
         </div>
         <div id="gallery-noi" class="gallery-grid active">
             <script>
-                for (let i = 1; i <= 20; i++) {
-                    const src = `assets/album/noi/${i}.jpg`;
+                const noiFiles = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.png', '15.png', '16.jpg', '17.jpg', '18.jpeg', '19.jpeg', '20.jpeg', '21.jpeg', '22.jpeg'];
+                noiFiles.forEach((file, index) => {
+                    const i = index + 1;
+                    const src = `assets/album/noi/${file}`;
                     const desc = `Ricordo stupendo #${i}`;
-                    document.write(`<div class="polaroid" onclick="openPhoto('${src}', '${desc}', 'album-noi', ${i - 1})"><img src="${src}"><div class="polaroid-text">Ricordo #${i}</div></div>`);
-                }
+                    document.write(`<div class="polaroid" onclick="openPhoto('${src}', '${desc}', 'album-noi', ${index})"><img src="${src}"><div class="polaroid-text">Ricordo #${i}</div></div>`);
+                });
             </script>
         </div>
         <div id="gallery-lei" class="gallery-grid">
             <script>
-                for (let i = 1; i <= 20; i++) {
-                    const src = `assets/album/lei/${i}.jpg`;
+                const leiFiles = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpeg'];
+                leiFiles.forEach((file, index) => {
+                    const i = index + 1;
+                    const src = `assets/album/lei/${file}`;
                     const desc = `A quei momenti lì  #${i}`;
-                    document.write(`<div class="polaroid" onclick="openPhoto('${src}', '${desc}', 'album-lei', ${i - 1})"><img src="${src}"><div class="polaroid-text">Hermosa #${i}</div></div>`);
-                }
+                    document.write(`<div class="polaroid" onclick="openPhoto('${src}', '${desc}', 'album-lei', ${index})"><img src="${src}"><div class="polaroid-text">Hermosa #${i}</div></div>`);
+                });
             </script>
         </div>
 
@@ -2211,7 +2252,7 @@
     <div id="playlist" class="section">
         <div class="section-header">
             <div class="back-circle" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i></div>
-            <h2 class="section-title">Playlist personale  </h2>
+            <h2 class="section-title">Playlist personale </h2>
         </div>
 
         <!-- Playlist Container -->
@@ -2341,7 +2382,7 @@
         const installPromptDiv = document.getElementById('pwa-install-prompt');
         const installBtn = document.getElementById('pwa-install-btn');
         const iosInstruction = document.getElementById('ios-instruction-box');
-        
+
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         const hidePrompt = localStorage.getItem('hideInstallPrompt') === 'true';
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -2372,10 +2413,10 @@
         if (!isStandalone && !hidePrompt) {
             if (isIOS) {
                 // Su iOS appare subito, senza fare aspettare l'utente
-                installBtn.style.display = 'none'; 
+                installBtn.style.display = 'none';
                 iosInstruction.style.display = 'block';
                 // Trigger quasi immediato (500ms) dopo l'inizio del caricamento per non confliggere
-                setTimeout(showPwaPrompt, 500); 
+                setTimeout(showPwaPrompt, 500);
             } else {
                 // Su Android aspettiamo l'evento nativo
                 window.addEventListener('beforeinstallprompt', (e) => {
@@ -2617,15 +2658,17 @@
             if (galleryId) {
                 currentPhotoIndex = index;
                 if (galleryId === 'album-noi') {
-                    currentPhotoList = Array.from({ length: 20 }, (_, i) => ({
-                        src: `assets/album/noi/${i + 1}.jpg`,
-                        desc: `Ricordo stupendo #${i + 1}`,
+                    const noiFiles = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.png', '15.png', '16.jpg', '17.jpg', '18.jpeg', '19.jpeg', '20.jpeg', '21.jpeg', '22.jpeg'];
+                    currentPhotoList = noiFiles.map((file, index) => ({
+                        src: `assets/album/noi/${file}`,
+                        desc: `Ricordo stupendo #${index + 1}`,
                         galleryId: 'album-noi'
                     }));
                 } else if (galleryId === 'album-lei') {
-                    currentPhotoList = Array.from({ length: 20 }, (_, i) => ({
-                        src: `assets/album/lei/${i + 1}.jpg`,
-                        desc: `A quei momenti lì #${i + 1}`,
+                    const leiFiles = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpeg'];
+                    currentPhotoList = leiFiles.map((file, index) => ({
+                        src: `assets/album/lei/${file}`,
+                        desc: `A quei momenti lì #${index + 1}`,
                         galleryId: 'album-lei'
                     }));
                 } else if (galleryId === 'profile') {
@@ -2821,6 +2864,22 @@
                 explanation: "Un inno alla positività, direttamente da Salerno."
             },
             {
+                title: "Wasabi freestyle",
+                artist: "Tedua",
+                url: "assets/musica/tedua_wasabi freestyle.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Chill",
+                explanation: "Old Tedua."
+            },
+            {
+                title: "Wasabi 2.0",
+                artist: "Tedua",
+                url: "assets/musica/tedua_wasabi 2.0.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Chill",
+                explanation: "Parte 2."
+            },
+            {
                 title: "Vertigini",
                 artist: "Tedua",
                 url: "assets/musica/tedua.mp3",
@@ -2875,6 +2934,14 @@
                 img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
                 mood: "Festa",
                 explanation: "Perchè sei troppo bella."
+            },
+            {
+                title: "Ossessione",
+                artist: "Samurai Jay",
+                url: "assets/musica/samurai jai_ossessione.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Festa",
+                explanation: "Ed è subito stramilano 2026."
             },
             {
                 title: "CAFÉ CON RON",
