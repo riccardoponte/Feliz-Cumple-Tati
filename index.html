@@ -3748,6 +3748,345 @@
             color: var(--text-color);
         }
 
+        /* ===== COUPON REGALO (CENA CHURRASCO) ===== */
+        .ticket.tk-churrasco {
+            background: linear-gradient(135deg, #1a1512, #2b211a 60%, #3a2a1c);
+            border: 2px dashed #d9b45a;
+            flex-wrap: wrap;
+        }
+
+        .tk-churrasco .ticket-icon {
+            color: #e8c877;
+        }
+
+        .tk-churrasco .ticket-content h3 {
+            color: #f6e7c5;
+        }
+
+        .tk-churrasco .ticket-content p {
+            color: #d9b45a;
+        }
+
+        .ticket-cta {
+            flex-basis: 100%;
+            margin-top: 12px;
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: #16130f;
+            background: linear-gradient(90deg, #e8c877, #d9b45a);
+            padding: 8px 10px;
+            border-radius: 6px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+
+        .ticket-container.revealed {
+            cursor: pointer;
+        }
+
+        .ticket-container.revealed .scratch-canvas {
+            display: none;
+        }
+
+        .ticket-container.revealed .ticket.tk-churrasco {
+            box-shadow: 0 0 22px rgba(216, 180, 90, 0.35);
+        }
+
+        .ticket-container.revealed .ticket-cta {
+            opacity: 1;
+            transform: translateY(0);
+            animation: ctaPulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes ctaPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(216, 180, 90, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(216, 180, 90, 0);
+            }
+        }
+
+        /* ===== OVERLAY PRENOTAZIONE ===== */
+        #reservation-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10050;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        #reservation-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .resv-card {
+            width: 100%;
+            max-width: 400px;
+            max-height: 92vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background: #16130f;
+            border: 1px solid rgba(216, 180, 90, 0.35);
+            border-radius: 18px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+            color: #f4ecdd;
+            position: relative;
+            transform: scale(0.9) translateY(10px);
+            transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        #reservation-overlay.active .resv-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .resv-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 3;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .resv-hero {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 18px 18px 0 0;
+        }
+
+        .resv-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .resv-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(22, 19, 15, 0.95));
+        }
+
+        .resv-hero-badge {
+            position: absolute;
+            left: 14px;
+            bottom: 12px;
+            z-index: 2;
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: #16130f;
+            background: linear-gradient(90deg, #e8c877, #d9b45a);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .resv-body {
+            padding: 4px 22px 24px;
+            text-align: center;
+        }
+
+        .resv-brand {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1;
+            color: #e8c877;
+        }
+
+        .resv-brand-sub {
+            font-family: var(--font-body);
+            font-size: 13px;
+            letter-spacing: 4px;
+            color: #cdbfa3;
+            margin-top: 4px;
+        }
+
+        .resv-tag {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-style: italic;
+            color: #9c8f78;
+            margin-top: 8px;
+        }
+
+        .resv-promise {
+            margin: 18px auto 4px;
+            max-width: 300px;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 18px;
+            line-height: 1.45;
+            color: #f0dcae;
+        }
+
+        .resv-confirm {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin: 16px auto 0;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 600;
+            color: #7ee0a1;
+            background: rgba(126, 224, 161, 0.1);
+            border: 1px solid rgba(126, 224, 161, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .resv-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 18px 0 0;
+            text-align: left;
+        }
+
+        .resv-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(216, 180, 90, 0.18);
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .resv-k {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-body);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #9c8f78;
+        }
+
+        .resv-k i {
+            color: #d9b45a;
+        }
+
+        .resv-v {
+            display: block;
+            margin-top: 3px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 600;
+            color: #f4ecdd;
+        }
+
+        .resv-addr {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+            margin: 16px 0 0;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(216, 180, 90, 0.18);
+            border-radius: 10px;
+            color: #f4ecdd;
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-size: 14px;
+        }
+
+        .resv-addr i {
+            color: #d9b45a;
+            font-size: 18px;
+        }
+
+        .resv-addr small {
+            color: #9c8f78;
+            font-size: 11px;
+        }
+
+        .resv-photo {
+            margin: 16px 0 0;
+        }
+
+        .resv-photo img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .resv-photo figcaption {
+            margin-top: 6px;
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-style: italic;
+            color: #9c8f78;
+            text-align: center;
+        }
+
+        .resv-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .resv-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .resv-btn-call {
+            background: linear-gradient(90deg, #e8c877, #d9b45a);
+            color: #16130f;
+        }
+
+        .resv-btn-web {
+            background: rgba(255, 255, 255, 0.06);
+            color: #f4ecdd;
+            border: 1px solid rgba(216, 180, 90, 0.3);
+        }
+
+        .resv-btn:active {
+            transform: scale(0.97);
+        }
+
         /* Pannello dettagli stats sopra la mappa */
         #map-filter-panel {
             position: absolute;
@@ -5679,24 +6018,15 @@
                     <div class="css-3d-object croqueta-3d cr3" title="Croqueta de jamón"></div>
                 </div>
 
-                <h3 style="font-family: var(--font-title); margin: 25px 0 10px;">Coupon Segreti</h3>
-                <div class="ticket-container" data-coupon-id="pizzatiata">
-                    <div class="ticket tk-na">
-                        <div class="ticket-icon"><i class="fa-solid fa-pizza-slice"></i></div>
+                <h3 style="font-family: var(--font-title); margin: 25px 0 10px;">Il Tuo Spazio</h3>
+                <div class="ticket-container tk-gift" data-coupon-id="cena_picanhas" onclick="openReservationFromTicket(event)">
+                    <div class="ticket tk-churrasco">
+                        <div class="ticket-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
                         <div class="ticket-content">
-                            <h3 style="font-size: 18px;">Pizzatiata</h3>
-                            <p style="font-size: 12px; color:#aaa;">Margherita. Offro io.</p>
+                            <h3 style="font-size: 18px;">Cena da Picanha's 🥩</h3>
+                            <p style="font-size: 12px;">Top Carne · Milano Lotto</p>
                         </div>
-                    </div>
-                    <canvas class="scratch-canvas"></canvas>
-                </div>
-                <div class="ticket-container" data-coupon-id="noche_latina">
-                    <div class="ticket tk-mx">
-                        <div class="ticket-icon"><i class="fa-solid fa-pepper-hot"></i></div>
-                        <div class="ticket-content">
-                            <h3 style="font-size: 18px;">Noche Latina</h3>
-                            <p style="font-size: 12px; color:#aaa;">Tacos e Margaritas.</p>
-                        </div>
+                        <div class="ticket-cta"><i class="fa-solid fa-hand-pointer"></i> Tocca per vedere la prenotazione</div>
                     </div>
                     <canvas class="scratch-canvas"></canvas>
                 </div>
@@ -6289,6 +6619,62 @@
         </div>
     </div>
 
+    <!-- OVERLAY PRENOTAZIONE (REGALO CENA) -->
+    <div id="reservation-overlay" onclick="if(event.target===this) closeReservation()">
+        <div class="resv-card" role="dialog" aria-label="Prenotazione ristorante">
+            <button class="resv-close" onclick="closeReservation()" aria-label="Chiudi">✕</button>
+            <div class="resv-hero">
+                <img src="./assets/ristorante/ambiente.jpg" alt="Churrasco – Picanha's Top Carne" loading="lazy" decoding="async">
+                <div class="resv-hero-badge"><i class="fa-solid fa-gift"></i> Regalo di compleanno</div>
+            </div>
+            <div class="resv-body">
+                <div class="resv-brand">Picanha's</div>
+                <div class="resv-brand-sub">TOP CARNE · MILANO</div>
+                <div class="resv-tag">Churrasco brasiliano · Girocarne</div>
+
+                <div class="resv-promise">
+                    “Te lo avevo promesso”
+                </div>
+
+                <div class="resv-confirm"><i class="fa-solid fa-circle-check"></i> Prenotazione confermata</div>
+
+                <div class="resv-grid">
+                    <div class="resv-item">
+                        <span class="resv-k"><i class="fa-solid fa-calendar-day"></i> Data</span>
+                        <span class="resv-v">Sabato 12 Settembre 2026</span>
+                    </div>
+                    <div class="resv-item">
+                        <span class="resv-k"><i class="fa-solid fa-clock"></i> Ora</span>
+                        <span class="resv-v">21:00</span>
+                    </div>
+                    <div class="resv-item">
+                        <span class="resv-k"><i class="fa-solid fa-user"></i> A nome di</span>
+                        <span class="resv-v">Riccardo</span>
+                    </div>
+                    <div class="resv-item">
+                        <span class="resv-k"><i class="fa-solid fa-champagne-glasses"></i> Occasione</span>
+                        <span class="resv-v">Compleanno di Ana</span>
+                    </div>
+                </div>
+
+                <a class="resv-addr" href="https://www.google.com/maps/search/?api=1&amp;query=Picanha%27s%20Top%20Carne%20Piazzale%20Lorenzo%20Lotto%2014%20Milano" target="_blank" rel="noopener">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Piazzale Lorenzo Lotto 14, 20148 Milano<br><small>Tocca per aprire su Google Maps</small></span>
+                </a>
+
+                <figure class="resv-photo">
+                    <img src="./assets/ristorante/carne.jpg" alt="La sala di Picanha's Top Carne a Piazzale Lotto" loading="lazy" decoding="async">
+                    <figcaption>La sala di Piazzale Lotto</figcaption>
+                </figure>
+
+                <div class="resv-actions">
+                    <a class="resv-btn resv-btn-call" href="tel:+390239214408"><i class="fa-solid fa-phone"></i> Chiama</a>
+                    <a class="resv-btn resv-btn-web" href="https://www.picanhastopcarne.com/lotto/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Sito</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL FOTO INVISIBILE -->
     <div id="photo-modal">
         <button class="close-modal" onclick="closePhoto()">×</button>
@@ -6862,6 +7248,7 @@
                     document.getElementById('vault-inside').style.display = 'block';
                     inizializzaGrattaEVinci();
                     restoreUsedCoupons();
+                    restoreGiftCoupon();
                 }, 900);
             } else {
                 const display = document.getElementById('pin-display');
@@ -8350,6 +8737,9 @@ Buon compleanno Tati.
             const hwOverlay = document.getElementById('hw-overlay');
             if (hwOverlay && hwOverlay.classList.contains('active')) { closeHandwrittenLetter(true); return; }
 
+            const reservationOverlay = document.getElementById('reservation-overlay');
+            if (reservationOverlay && reservationOverlay.classList.contains('active')) { closeReservation(true); return; }
+
             const photoModal = document.getElementById('photo-modal');
             if (photoModal.classList.contains('active')) { closePhoto(true); return; }
 
@@ -8466,11 +8856,44 @@ Buon compleanno Tati.
                 if (used) applyUsedState(c, used);
             });
         }
+
+        // REGALO — coupon cena churrasco (persistenza "scoperto" su localStorage)
+        const GIFT_REVEAL_KEY = 'tati_gift_cena_revealed';
+        function revealGiftCoupon(container) {
+            container.classList.add('revealed');
+            try { localStorage.setItem(GIFT_REVEAL_KEY, '1'); } catch (e) { }
+        }
+        function restoreGiftCoupon() {
+            let revealed = null;
+            try { revealed = localStorage.getItem(GIFT_REVEAL_KEY); } catch (e) { }
+            if (revealed) {
+                document.querySelectorAll('.ticket-container[data-coupon-id="cena_picanhas"]')
+                    .forEach(c => c.classList.add('revealed'));
+            }
+        }
+        function openReservationFromTicket(e) {
+            const c = e.currentTarget;
+            if (!c || !c.classList.contains('revealed')) return;
+            openReservation();
+        }
+        function openReservation() {
+            const ov = document.getElementById('reservation-overlay');
+            if (!ov) return;
+            history.pushState({ modal: 'reservation' }, '');
+            ov.classList.add('active');
+        }
+        function closeReservation(fromHistory = false) {
+            const ov = document.getElementById('reservation-overlay');
+            if (!ov) return;
+            ov.classList.remove('active');
+            if (!fromHistory && history.state && history.state.modal === 'reservation') history.back();
+        }
+
         function inizializzaGrattaEVinci() {
             if (canvasInizializzati) return;
             document.querySelectorAll('.scratch-canvas').forEach(canvas => {
                 const container = canvas.closest('.ticket-container');
-                if (container && container.classList.contains('used')) return;
+                if (container && (container.classList.contains('used') || container.classList.contains('revealed'))) return;
                 const ctx = canvas.getContext('2d'); canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight;
                 ctx.fillStyle = '#777'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#fff'; ctx.font = 'bold 22px Permanent Marker'; ctx.textAlign = "center"; ctx.fillText('GRATTA QUI', canvas.width / 2, canvas.height / 2 + 8);
                 let isDrawing = false;
@@ -8486,7 +8909,13 @@ Buon compleanno Tati.
                     if (canvas.dataset.scratches > 30) {
                         isDrawing = false;
                         canvas.style.opacity = '0';
-                        setTimeout(() => { canvas.style.pointerEvents = 'none'; if (container) markCouponUsed(container); }, 500);
+                        setTimeout(() => {
+                            canvas.style.pointerEvents = 'none';
+                            if (container) {
+                                if (container.dataset.couponId === 'cena_picanhas') revealGiftCoupon(container);
+                                else markCouponUsed(container);
+                            }
+                        }, 500);
                     }
                 }
                 function scratch(e) {

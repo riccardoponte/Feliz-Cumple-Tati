@@ -8,7 +8,7 @@
 //                 (cos� le aree gi� visitate restano visibili offline)
 // ============================================================
 
-const VERSION = 'v86';
+const VERSION = 'v87';
 const SHELL_CACHE = `tati-shell-${VERSION}`;
 const RUNTIME_CACHE = `tati-runtime-${VERSION}`;
 const TILES_CACHE = `tati-tiles-${VERSION}`;
@@ -19,7 +19,9 @@ const SHELL_ASSETS = [
   './manifest.json',
   './assets/icon-192.png',
   './assets/icon-512.png',
-  './assets/welcome.jpg'
+  './assets/welcome.jpg',
+  './assets/ristorante/ambiente.jpg',
+  './assets/ristorante/carne.jpg'
 ];
 
 // Massimo numero di tile da tenere in cache (LRU-ish)
