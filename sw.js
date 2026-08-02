@@ -24,7 +24,7 @@ const SHELL_ASSETS = [
   './assets/ristorante/carne.jpg'
 ];
 
-// Massimo numero di tile da tenere in cache (LRU-ish)
+// Massimo numero di tile da tenere nella cache (LRU-ish)
 const MAX_TILES = 300;
 
 // ---------- INSTALL ----------
