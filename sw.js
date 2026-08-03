@@ -4,7 +4,7 @@
 //   - "shell"   : precache HTML, manifest, icone (install)
 //   - "runtime" : cache dinamica per CDN (Leaflet, FontAwesome, Google Fonts)
 //                 e per le foto dei posti (assets/posti/*)
-//   - "tiles"   : cache opportunistica per le tile OpenStreetMap / CARTO
+//   - "tiles"   : cache opportunistica per tile OpenStreetMap / CARTO
 //                 (cos� le aree gi� visitate restano visibili offline)
 // ============================================================
 
