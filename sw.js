@@ -8,7 +8,7 @@
 //                 (cos� le aree gi� visitate restano visibili offline)
 // ============================================================
 
-const VERSION = 'v87';
+const VERSION = 'v88';
 const SHELL_CACHE = `tati-shell-${VERSION}`;
 const RUNTIME_CACHE = `tati-runtime-${VERSION}`;
 const TILES_CACHE = `tati-tiles-${VERSION}`;
