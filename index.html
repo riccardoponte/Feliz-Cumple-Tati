@@ -725,12 +725,12 @@
         }
 
         .album-tab.active {
-            background: var(--azzurro);
+            background: var(--rosa-mex);
             color: #fff;
         }
 
         .album-tab:nth-child(2).active {
-            background: var(--rosa-mex);
+            background: var(--azzurro);
         }
 
 
@@ -6714,12 +6714,12 @@
             Clicca sui ricordi più belli per sfogliarli
         </p>
         <div class="album-nav">
-            <div class="album-tab active" onclick="switchGallery('noi', this)">Dottori 👨‍⚕️</div>
-            <div class="album-tab" onclick="switchGallery('lei', this)">Dott.sa 👩‍⚕️</div>
+            <div class="album-tab active" onclick="switchGallery('lei', this)">Dott.sa 👩‍⚕️</div>
+            <div class="album-tab" onclick="switchGallery('noi', this)">Dottori 👨‍⚕️</div>
 
         </div>
-        <div id="gallery-noi" class="gallery-grid active"></div>
-        <div id="gallery-lei" class="gallery-grid"></div>
+        <div id="gallery-lei" class="gallery-grid active"></div>
+        <div id="gallery-noi" class="gallery-grid"></div>
 
     </div>
 
@@ -9987,7 +9987,7 @@ Buon compleanno Tati.
 
             if (tabId === 'album') {
                 const activeGallery = document.querySelector('#album .gallery-grid.active');
-                renderAlbumGallery(activeGallery ? activeGallery.id.replace('gallery-', '') : 'noi');
+                renderAlbumGallery(activeGallery ? activeGallery.id.replace('gallery-', '') : 'lei');
             }
 
             // Gestione Back Button
@@ -10144,7 +10144,6 @@ Buon compleanno Tati.
                 { icon: 'fa-map-pin', num: numPosti, label: 'luoghi del cuore' },
                 { icon: 'fa-music', num: numSongs, label: 'canzoni in playlist' },
                 { icon: 'fa-pizza-slice', num: '∞', label: 'focaccine condivise' },
-                { icon: 'fa-beer-mug-empty', num: '42', label: 'birre al Doppio Malto' },
                 { icon: 'fa-cake-candles', num: ageOn(nextBirthdayDate()), label: 'anni da festeggiare' },
                 { icon: 'fa-star', num: '1', label: 'Tati al mondo ✨' }
             ];
@@ -10259,7 +10258,7 @@ Buon compleanno Tati.
                 songUrl: 'assets/musica/marracash_io.mp3'
             },
             {
-                id: 'fitactive', numero: 5, titolo: 'Fitactive Barona', dove: 'Milano',
+                id: 'fitactive', numero: 5, titolo: 'Fitactive', dove: 'Milano',
                 coord: [45.4360, 9.1490], emoji: '💪', categoria: 'sport',
                 foto: 'assets/posti/5.jpg',
                 frase: 'Quanto ci manca il bastardo inclinato ahahaah, torniamo?',
