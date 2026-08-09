@@ -8,7 +8,7 @@
 //                 (cos� le aree gi� visitate restano visibili offline)
 // ============================================================
 
-const VERSION = 'v88';
+const VERSION = 'v89';
 const SHELL_CACHE = `tati-shell-${VERSION}`;
 const RUNTIME_CACHE = `tati-runtime-${VERSION}`;
 const TILES_CACHE = `tati-tiles-${VERSION}`;
@@ -19,6 +19,7 @@ const SHELL_ASSETS = [
   './manifest.json',
   './assets/icon-192.png',
   './assets/icon-512.png',
+  './assets/og-image.jpg',
   './assets/welcome.jpg',
   './assets/ristorante/ambiente.jpg',
   './assets/ristorante/carne.jpg'
