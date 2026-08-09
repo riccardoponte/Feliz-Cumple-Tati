@@ -1,6 +1,6 @@
 // ============================================================
 //  Tati App - Service Worker
-//  Strategia cache:
+//  Strategia della cache:
 //   - "shell"   : precache HTML, manifest, icone (install)
 //   - "runtime" : cache dinamica per CDN (Leaflet, FontAwesome, Google Fonts)
 //                 e per le foto dei posti (assets/posti/*)
