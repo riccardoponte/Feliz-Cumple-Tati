@@ -1,3 +1,9 @@
+🌐 **Lingua / Language:** [🇮🇹 Italiano](#italiano) · [🇬🇧 English](#english)
+
+---
+
+<a id="italiano"></a>
+
 # 🎁 Feliz Cumple Tati
 
 Web app/PWA personale di compleanno per Tati. Stile retrò–polaroid, sezioni interattive (album, mappa, musica, mini-Netflix, paperelle).
@@ -227,3 +233,237 @@ Il file `sw.js` decide cosa pre-cachare per l'uso offline. **Non cacha i video**
 | Schermata di benvenuto | cerca `welcome.jpg` |
 
 Buone feste a Tati 💙
+
+---
+
+<a id="english"></a>
+
+# 🎁 Feliz Cumple Tati
+
+Personal birthday web app / PWA for Tati. Retro-polaroid style, interactive sections (album, map, music, mini-Netflix, ducks).
+
+> ✨ **All code is in a single file**: [index.html](index.html). HTML + CSS + JavaScript live together within its ~9000 lines. To edit anything (texts, movies, places, photos…) simply open that file.
+
+---
+
+## 📂 Project Structure
+
+```
+Feliz-Cumple-Tati-main/
+├── index.html              ← ENTIRE app (HTML + CSS + JS)
+├── manifest.json           ← PWA configuration (name, colors, icons)
+├── sw.js                   ← Service Worker (offline functionality)
+├── README.md               ← This file
+├── .github/workflows/
+│   └── static.yml          ← Automatic deployment to GitHub Pages
+└── assets/
+    ├── icon-192.png / icon-512.png   ← PWA icons
+    ├── welcome.jpg                   ← welcome screen image
+    ├── album/lei/                    ← photos of her alone (1.jpg, 2.jpg, …)
+    ├── album/noi/                    ← photos of the two of you (1.jpg, 2.jpg, …)
+    ├── cinema/poster/                ← TATIFLIX movie posters (id.jpg)
+    ├── musica/                       ← playlist MP3s
+    ├── papere/                       ← 6 duck illustrations
+    ├── posti/                        ← photos of places on the map
+    ├── profilo/                      ← "profile" feed photos
+    └── TATIFLIX-README.md            ← extended cinema section guide
+```
+
+---
+
+## 🚀 How to Run the App
+
+### Locally
+Open `index.html` with your browser. For full PWA functionality a server is required: the quickest way is the VS Code **Live Server** extension (right-click on the file → "Open with Live Server").
+
+### Online (GitHub Pages)
+The workflow in `.github/workflows/static.yml` automatically publishes the app on every `git push` to the main branch. The URL will be formatted as `https://<your-username>.github.io/Feliz-Cumple-Tati/`.
+
+### Forcing updates after a change
+When you change something, reload with **Ctrl+Shift+R** (Windows) or **Cmd+Shift+R** (Mac): this forces the service worker to re-fetch the files.
+
+---
+
+## ✏️ How to Add Content — Section-by-Section Guide
+
+> 💡 **All changes are made in `index.html`**. Use `Ctrl+F` to search for the keywords listed below.
+
+### 🎬 1) Adding a MOVIE (TATIFLIX)
+
+**Step 1 — Poster**: save the image to `assets/cinema/poster/<id>.jpg`. The filename must match the `id` you will use exactly (lowercase letters, hyphens).
+Recommended source: [themoviedb.org](https://www.themoviedb.org).
+
+**Step 2 — Catalog**: in `index.html`, search for `const tatiflixCatalog`. Add a line before `]`, placing a comma after the preceding entry:
+
+```js
+            { id: 'inside-out', type: 'film', titolo: 'Inside Out', anno: 2015, generi: ['Animazione', 'Famiglia'], durata: '1h 35min', regista: 'Pete Docter', cast: ['Amy Poehler'], trama: "Le 5 emozioni di Riley alle prese con un trasloco.", ricordo: "Vista quella sera di pioggia.", categoria: ['insieme', 'preferito-tati'], rating: 8.5, videoUrl: 'https://drive.google.com/file/d/ID_QUI/view?usp=sharing' }
+```
+
+**Available fields**:
+
+| Field | Req. | Notes |
+|---|---|---|
+| `id` | ✅ | Unique, identical to poster filename |
+| `type` | ✅ | Always `'film'` |
+| `titolo` `anno` `generi` `durata` `regista` `cast` | ✅ | See template |
+| `trama` | ✅ | Short synopsis |
+| `ricordo` | ✅ | Personal memory/sentence shown in details |
+| `categoria` | ✅ | Array. Values: `'insieme'`, `'preferito-tati'` |
+| `rating` | ✅ | 0–10 with decimal (`8.5`) |
+| `videoUrl` | opt. | Drive/Dropbox/R2 URL to video file |
+| `driveId` | opt. | Drive ID only (alternative to `videoUrl`) |
+| `top` | opt. | 1–10 → enters the "🔥 Top 10" row |
+| `hero` | opt. | `true` on only ONE movie → becomes the giant banner |
+
+**For video (Google Drive)**: file on Drive → right-click → Share → "Anyone with the link" → Viewer → copy link → paste into `videoUrl`.
+
+📘 Complete in-depth guide: [assets/TATIFLIX-README.md](assets/TATIFLIX-README.md).
+
+---
+
+### 📍 2) Adding a PLACE (map)
+
+In `index.html`, search for `const posti = [`. Add an entry before `];`:
+
+```js
+            {
+                id: 'caraibi', numero: 15, titolo: 'Punta Cana', dove: 'Repubblica Dominicana',
+                coord: [18.5601, -68.3725], emoji: '🌴', categoria: 'mare',
+                foto: 'assets/posti/15.jpg',
+                frase: 'Spiagge bianche e cocktail al tramonto.',
+                songUrl: 'assets/musica/cafe_con_ron.mp3'
+            },
+```
+
+**Fields**:
+
+| Field | What to put |
+|---|---|
+| `id` | Unique (letters/hyphens) |
+| `numero` | Progressive number, orders pin on map |
+| `titolo` `dove` | Displayed on the card |
+| `coord` | `[latitude, longitude]` — get them from [Google Maps](https://maps.google.com) (right-click on a point → click coordinates to copy) |
+| `emoji` | A single emoji, displayed on the pin |
+| `categoria` | Filter pins: `'studio'`, `'sport'`, `'mare'`, `'viaggio'`, `'juve'`, `'shop'` |
+| `foto` | Path to `assets/posti/<numero>.jpg` (upload it first) |
+| `frase` | Romantic/funny caption |
+| `songUrl` | Associated song (path to an mp3 in `assets/musica/`) |
+
+**Extra step**: upload the place photo to `assets/posti/<numero>.jpg`.
+
+---
+
+### 🎵 3) Adding a SONG to the playlist
+
+**Step 1**: copy the `.mp3` file to `assets/musica/`. Use a simple filename (no spaces, no special characters): e.g. `nuova_canzone.mp3`.
+
+**Step 2**: in `index.html`, search for `const songs = [`. Add:
+
+```js
+            {
+                title: "Nome canzone",
+                artist: "Nome artista",
+                url: "assets/musica/nuova_canzone.mp3",
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300",
+                mood: "Festa",
+                explanation: "Perché è speciale per noi."
+            },
+```
+
+**Fields**:
+
+| Field | Notes |
+|---|---|
+| `title` `artist` | Free string |
+| `url` | Local path to the mp3 |
+| `img` | Cover image URL (can be external link or local asset) |
+| `mood` | Category for filtering: `"Festa"`, `"Chill"`, `"Romantica"`, etc. — reuse existing ones for consistency |
+| `explanation` | Personal comment line |
+
+---
+
+### 📷 4) Adding PHOTOS to the ALBUM
+
+The album has **two galleries**: "noi" (us) and "lei" (her).
+
+**Step 1**: copy photos to:
+- `assets/album/noi/` for photos of the two of you
+- `assets/album/lei/` for photos of her alone
+
+Use progressive numeric filenames: `23.jpg`, `24.jpeg`, `25.png`…
+
+**Step 2**: in `index.html`, search for `const noiFiles = [` (for "noi") or `const leiFiles = [` (for "lei"). Add filenames to the array:
+
+```js
+const noiFiles = ['1.jpg', ..., '22.jpeg', '23.jpg', '24.jpeg'];
+```
+
+⚠️ Keep the correct file extension (`.jpg`, `.jpeg`, `.png`) and numeric order.
+
+---
+
+### 🦆 5) Adding a DUCK
+
+**Step 1**: copy the PNG into `assets/papere/` with the next progressive number (`7.png`).
+
+**Step 2**: in `index.html`, search for `assets/papere/1.png`. You will see 6 identical HTML blocks (one for each duck). Duplicate one and increment the number:
+
+```html
+<div class="duck-card" onclick="openPhoto('assets/papere/7.png', 'Papera 7')">
+    <img src="assets/papere/7.png" class="duck-thumb">
+    <div class="duck-title">Papera 7</div>
+</div>
+```
+
+(Check the adjacent exact block to copy the real style used in the file.)
+
+**Step 3** (optional): also search for `{ src: 'assets/papere/1.png'` — there is a second list used by the photo gallery. Add `{ src: 'assets/papere/7.png', desc: 'Papera 7' }`.
+
+---
+
+### 👤 6) Adding photos to the PROFILE (Instagram-style feed)
+
+**Step 1**: copy the photo to `assets/profilo/` as `12.jpg` (next number).
+
+**Step 2**: in `index.html`, search for `for (let i = 1; i <= 11; i++)` (inside `renderProfileFeed`) and change `11` to the new total (`12`).
+
+**Step 3**: also search for `assets/profilo/${i + 1}.jpg` — there is a second similar loop for the gallery. Change the limit there as well if necessary.
+
+> If you add many photos, it is better to convert the two `for` loops into a single file array (like the album), so you only add filenames without touching numbers.
+
+---
+
+## 🛠️ Useful Technical Notes
+
+### Service Worker
+The file `sw.js` determines what to pre-cache for offline use. **It does not cache videos** (they would be too heavy) nor external `videoUrl`s. If you add a new section with large assets and want them to work offline, add their paths to its array.
+
+### PWA Manifest
+`manifest.json` defines the name, icon, and colors of the "installed app". To change the icon, replace `assets/icon-192.png` and `assets/icon-512.png` while keeping the same dimensions.
+
+### Common Errors
+- **Blank page** → almost always a missing comma or an unescaped apostrophe inside a string. Open browser console (F12) and inspect the error.
+- **Photo/video not showing** → check the exact filename (case-sensitivity matters, especially on GitHub Pages).
+- **Changes not visible** → service worker serving the old cache. **Ctrl+Shift+R** to force reload.
+
+### Best Practices
+- **Filenames**: always lowercase, no spaces, no accents (`tedua_wasabi.mp3` ✅, `Tedua Wasabì.mp3` ❌).
+- **Images**: compress them before uploading (e.g. with [squoosh.app](https://squoosh.app)) to keep the site lightweight.
+- **Backup**: before making a large change, run `git commit` or make a copy of `index.html`.
+
+---
+
+## 📞 Quick Reference
+
+| Want to edit… | Search in `index.html` |
+|---|---|
+| TATIFLIX movie catalog | `const tatiflixCatalog` |
+| Places on map | `const posti = [` |
+| Music playlist | `const songs = [` |
+| Album photos "noi" | `const noiFiles = [` |
+| Album photos "lei" | `const leiFiles = [` |
+| Profile feed | `renderProfileFeed` |
+| Ducks | `assets/papere/1.png` |
+| Welcome screen | search `welcome.jpg` |
+
+Happy Birthday to Tati 💙
